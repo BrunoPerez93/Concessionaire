@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from 'react'
+import React, { ChangeEvent, useCallback, useState, useEffect } from 'react'
 import { Input } from '../ui/input';
 import Image from 'next/image';
 import { Label } from '../ui/label';
@@ -16,25 +16,17 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ onUpload }) => {
         const selectedFiles = e.target.files;
         if (selectedFiles) {
             const fileArray = Array.from(selectedFiles);
-            setFiles((prevFiles) => {
-                const updatedFiles = [...prevFiles, ...fileArray];
-                if (onUpload) {
-                    onUpload(updatedFiles);
-                }
-                return updatedFiles;
-            });
+            setFiles((prevFiles) => [...prevFiles, ...fileArray]); 
         }
-    }, [onUpload]);
+    }, []);
 
     const handleDelete = useCallback((index: number) => {
-        setFiles((prevFiles) => {
-            const updatedFiles = prevFiles.filter((_, i) => i !== index);
-            if (onUpload) {
-                onUpload(updatedFiles);
-            }
-            return updatedFiles;
-        });
-    }, [onUpload]);
+        setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index)); 
+    }, []);
+
+    useEffect(() => {
+        onUpload(files); 
+    }, [files, onUpload]);
 
     return (
         <div className='space-y-3'>

@@ -10,10 +10,11 @@ type FormFieldProps<T> = {
     placeholder: string,
     name: string,
     value: T,
-    set: (value: T) => void
+    set: (value: T) => void,
+    error?: string,
 }
 
-export const FormField = <T extends string | number>({ htmlFor, label, id, type, placeholder, name, value, set }: FormFieldProps<T>) => {
+export const FormField = <T extends string | number>({ htmlFor, label, id, type, placeholder, name, value, set, error }: FormFieldProps<T>) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
 
@@ -36,6 +37,7 @@ export const FormField = <T extends string | number>({ htmlFor, label, id, type,
                 value={type === "number" ? value.toString() : value}
                 onChange={handleChange}
             />
+            {error && <p className='text-red-500'>{error}</p>}
         </div>
     )
 }

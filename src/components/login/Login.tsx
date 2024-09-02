@@ -36,7 +36,7 @@ export const Login = () => {
 
             if (result.success) {
                 login();
-                router.push('/');
+                router.push('/addCar');
             } else {
                 setError('Username or password are incorrect');
                 setTimeout(() => {

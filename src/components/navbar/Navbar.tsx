@@ -15,8 +15,7 @@ export const Navbar = () => {
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavLink text='Inicio' href='/' />
-                    <NavLink text='Nuevos' href='/' />
-                    <NavLink text='Usados' href='/' />
+                    <NavLink text='Autos' href='/autos' />
                     <NavLink text='Cotizacion' href='/' />
                     <NavLink text='Contactenos' href='/' />
                     {!isLoggedIn ? (

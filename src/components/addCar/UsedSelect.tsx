@@ -1,21 +1,22 @@
-import React from 'react'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select'
+import React from 'react';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '../ui/select';
 import { Label } from '../ui/label';
 
 interface UsedSelectProps {
-    used: boolean;
-    setUsed: (used: boolean) => void;
+    used: boolean | undefined;
+    setUsed: (used: boolean | undefined) => void;
+    error: string;
 }
 
-export const UsedSelect: React.FC<UsedSelectProps> = ({ used, setUsed }) => {
-
+export const UsedSelect: React.FC<UsedSelectProps> = ({ used, setUsed, error }) => {
     const handleSelect = (value: string) => {
-        setUsed(value === 'usado')
-    }
+        setUsed(value === 'usado');
+    };
+
     return (
         <div>
             <Label>Estado</Label>
-            <Select onValueChange={handleSelect}>
+            <Select onValueChange={handleSelect} value={used === undefined ? 'placeholder' : (used ? 'usado' : 'nuevo')}>
                 <SelectTrigger>
                     <SelectValue placeholder="Seleccione el estado" />
                 </SelectTrigger>
@@ -27,6 +28,7 @@ export const UsedSelect: React.FC<UsedSelectProps> = ({ used, setUsed }) => {
                     </SelectGroup>
                 </SelectContent>
             </Select>
+            {error && <p className='text-red-500'>{error}</p>}
         </div>
-    )
-}
+    );
+};
