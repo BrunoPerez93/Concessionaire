@@ -1,19 +1,33 @@
-import Link from "next/link"
-import { NavigationMenuItem, NavigationMenuLink, navigationMenuTriggerStyle } from "../ui/navigation-menu"
+import Link from "next/link";
+import {
+    NavigationMenuItem,
+    NavigationMenuLink,
+    navigationMenuTriggerStyle,
+} from "../ui/navigation-menu";
 
 interface NavLinkProps {
     text: string;
-    href: string;
+    href?: string;
+    onClick?: () => void;
 }
 
-export const NavLink: React.FC<NavLinkProps> = ({ text, href }) => {
+export const NavLink: React.FC<NavLinkProps> = ({ text, href, onClick }) => {
     return (
         <NavigationMenuItem>
-            <Link href={href} legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            {href ? (
+                <Link href={href} legacyBehavior passHref>
+                    <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                        {text}
+                    </NavigationMenuLink>
+                </Link>
+            ) : (
+                <button
+                    className={navigationMenuTriggerStyle()}
+                    onClick={onClick}
+                >
                     {text}
-                </NavigationMenuLink>
-            </Link>
+                </button>
+            )}
         </NavigationMenuItem>
-    )
-}
+    );
+};

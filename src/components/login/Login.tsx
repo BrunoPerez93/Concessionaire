@@ -5,6 +5,7 @@ import { LoginField } from "./LoginField";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthContext";
 
 export const Login = () => {
     const [username, setUsername] = useState<string>("");
@@ -12,6 +13,7 @@ export const Login = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const router = useRouter();
+    const { login } = useAuth();
 
     const handleSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -33,6 +35,7 @@ export const Login = () => {
             const result = await response.json();
 
             if (result.success) {
+                login();
                 router.push('/');
             } else {
                 setError('Username or password are incorrect');
@@ -49,7 +52,7 @@ export const Login = () => {
     }
 
     return (
-        <form className="space-y-5 w-full p-5" onSubmit={handleSubmitLogin}>
+        <form className="space-y-5 w-1/3 p-5" onSubmit={handleSubmitLogin}>
             <LoginField
                 htmlFor='username'
                 label='Username'
